@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Accordion - Sortable</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <!-- link rel="stylesheet" href="/resources/demos/style.css" -->
+  <style>
+  /* IE has layout issues when sorting (see #5413) */
+  .group { zoom: 1 }
+  </style>
+  <script src="scripts/data.js"></script>
+  <script>
+
+$(document).ready(function() {
+    for (var i = 0; i < data.length; i++) {
+        var objClone = $("#cloneDataItem").clone();
+        objClone.show();
+        objClone.find("#name").text(data[i].firstName + " " + data[i].lastName);
+        objClone.find("#description").text(data[i].bio);
+        objClone.find("#img").attr("src", data[i].picture);
+        $("#dataList").append(objClone);
+    }
+    
+    $( "#dataList" ).accordion({ header: "> div > h3"})
+                    .sortable({ axis: "y", handle: "h3", stop: function( event, ui ) {
+                        ui.item.children( "h3" ).triggerHandler( "focusout" ); 
+                        $( this ).accordion( "refresh" );
+                        }
+                    });
+});
+
+  </script>
+</head>
+<body>
+ 
+<div id="dataList">
+
+</div>
+
+<div class="group" style="display:none;" id="cloneDataItem">
+    <h3 id="name"></h3>
+    <div>
+            <img src="" id="img" align="left" style="width: 100px; height: 100px; margin-right: 20px; margin-bottom: 20px; padding: 2px; border: 1px solid #EEE;"/>
+            <span id="description">
+            
+            <span>
+    </div>
+</div>
+ 
+</body>
+</html>
